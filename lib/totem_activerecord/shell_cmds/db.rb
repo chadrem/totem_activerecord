@@ -3,11 +3,10 @@ module TotemActiverecord
     class Db < Totem::ShellCmds::Base
       def run
         case @args[0]
-        when 'create'
-        when 'drop'
-        when 'migrate'
-        when 'rollback'
-          rollback
+        when 'create'   then create
+        when 'drop'     then drop
+        when 'migrate'  then migrate
+        when 'rollback' then rollback
         end
       end
 
