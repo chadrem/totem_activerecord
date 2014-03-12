@@ -2,7 +2,7 @@ module TotemActiverecord
   module ShellCmds
     class Db < Totem::ShellCmds::Base
       def run
-        case @argv[0]
+        case @args[0]
         when 'create'
         when 'drop'
         when 'migrate'
