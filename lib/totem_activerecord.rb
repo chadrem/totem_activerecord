@@ -14,7 +14,7 @@ module TotemActiverecord
   end
 
   def self.config
-    return (@config ||= YAML.load_file(config_path)[env])
+    return (@config ||= YAML.load_file(config_path)[Totem.env])
   end
 
   def self.connect
