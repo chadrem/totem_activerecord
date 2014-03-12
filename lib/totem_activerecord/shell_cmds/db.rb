@@ -28,7 +28,7 @@ module TotemActiverecord
         ActiveRecord::Migration.verbose = true
         ActiveRecord::Migrator.migrate(TotemActiverecord.migrations_path)
 
-        Totem.db_reconnect
+        TotemActiverecord.reconnect
 
         return true
       end
