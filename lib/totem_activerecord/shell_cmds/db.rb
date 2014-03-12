@@ -12,7 +12,7 @@ module TotemActiverecord
 
       def create
         ActiveRecord::Base.establish_connection(TotemActiverecord.config.merge('database' => nil))
-        ActiveRecord::Base.connection.create_database(TotemActiverecord.config['database'], options)
+        ActiveRecord::Base.connection.create_database(TotemActiverecord.config['database'])
         ActiveRecord::Base.establish_connection(TotemActiverecord.config)
 
         return true
