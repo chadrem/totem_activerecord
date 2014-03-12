@@ -85,7 +85,7 @@ Example model `app/user.rb` to go with the above migration:
 
 Rember to add the model to the `app/loader.rb` just like you do with all classes in a Totem project:
 
-    require 'user.rb'
+    require 'user'
 
 ## Contributing
 
