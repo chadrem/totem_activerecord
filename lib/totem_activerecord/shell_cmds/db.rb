@@ -44,6 +44,4 @@ module TotemActiverecord
   end
 end
 
-puts Totem::Shell.instance_variable_get('@cmds').inspect
 Totem::Shell.register_cmd(:db, TotemActiverecord::ShellCmds::Db)
-puts Totem::Shell.instance_variable_get('@cmds').inspect
