@@ -9,7 +9,7 @@ module TotemActiverecord
     return File.join(Totem.root, 'config', 'database.yml')
   end
 
-  def migrations_path
+  def self.migrations_path
     return File.join(Totem.root, 'db', 'migrate')
   end
 
