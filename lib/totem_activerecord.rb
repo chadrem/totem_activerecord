@@ -49,3 +49,5 @@ module TotemActiverecord
     return !!ActiveRecord::Base.connected?
   end
 end
+
+Totem.register_callback(:before_load_app) { TotemActiverecord.connect }
