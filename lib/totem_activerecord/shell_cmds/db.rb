@@ -5,7 +5,7 @@ module TotemActiverecord
         case @args[0]
         when 'create'    then create
         when 'drop'      then drop
-        when 'migrate'   then migrateb
+        when 'migrate'   then migrate
         when 'rollback'  then rollback
         when 'migration' then migration(@args[1])
         else
