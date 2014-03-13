@@ -39,6 +39,13 @@ It is recommeended you do this so that your project is always in a known state:
 
     gem 'activerecord', '3.2.17', :require => 'active_record'
 
+You will also need to add the appropriate database specific gem to your Gemfile.
+For the above example, you would add the following:
+
+    gem 'mysql2'
+
+You should now run `bundle` again so it instals the new gems.
+
 ## Usage
 
 Create your database:
