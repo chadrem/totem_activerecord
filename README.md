@@ -64,25 +64,13 @@ Rollback your database (one migration back):
 
     $ bundle exec totem db rollback
 
-## Migrations
+Create a new (empty) migration:
 
-You will need to manually create migrations in the `db/migrate` directory.
-The filename and syntax is the same as what you would use in Rails.
-
-Example migration `db/migrate/20140312221052_create_users.rb`:
-
-    class CreateUsers < ActiveRecord::Migration
-      def change
-        create_table :users do |t|
-          t.string :name
-          t.timestamps
-        end
-      end
-    end
+    $ bundle exec totem db migration <name>
 
 ## Models
 
-You will need to manually create models in the `app` directory or a sub-directory.
+You will need to manually create models in the `app` directory.
 
 Example model `app/user.rb` to go with the above migration:
 
