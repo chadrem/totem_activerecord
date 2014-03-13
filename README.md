@@ -68,6 +68,14 @@ Create a new (empty) migration:
 
     $ bundle exec totem db migration <name>
 
+Run the 'up' method for a given migration:
+
+    $ bundle exec totem db up <timestamp>
+
+Run the 'down' method for a given migration:
+
+    $ bundle exec totem db down <timestamp>
+
 ## Models
 
 You will need to manually create models in the `app` directory.
