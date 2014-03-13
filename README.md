@@ -1,4 +1,4 @@
-# TotemActiverecord
+# Totem - Activerecord
 
 This gem is the ActiveRecord add-on for [Totem](https://github.com/chadrem/totem).
 
