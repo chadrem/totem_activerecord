@@ -8,6 +8,9 @@ module TotemActiverecord
         when 'migrate'   then migrate
         when 'rollback'  then rollback
         when 'migration' then migration(@args[1])
+        when 'up'        then up(@args[1])
+        when 'down'      then down(@args[1])
+        when 'run'       then run_m(@args[1])
         else
           puts_usage
         end
@@ -17,6 +20,7 @@ module TotemActiverecord
         ActiveRecord::Base.establish_connection(TotemActiverecord.config.merge('database' => nil))
         ActiveRecord::Base.connection.create_database(TotemActiverecord.config['database'])
         ActiveRecord::Base.establish_connection(TotemActiverecord.config)
+        TotemActiverecord.reconnect
 
         return true
       end
@@ -30,7 +34,6 @@ module TotemActiverecord
       def migrate
         ActiveRecord::Migration.verbose = true
         ActiveRecord::Migrator.migrate(TotemActiverecord.migrations_path)
-
         TotemActiverecord.reconnect
 
         return true
@@ -44,12 +47,7 @@ module TotemActiverecord
       end
 
       def migration(name)
-        if name.length == 0
-          puts "ERROR: You must provide a name for the migration."
-          puts
-          puts_usage
-          return
-        end
+        return false unless require_name(name)
 
         name = name.gsub(/\s/,'_')
         timestamp =  Time.now.utc.strftime("%Y%m%d%H%M%S")
@@ -60,11 +58,35 @@ module TotemActiverecord
         puts "Creating migration: #{path}"
 
         if File.exists?(path)
-          puts "ERROR: Migration already exists."
+          puts_error('Migration already exists.')
           return false
         end
 
         File.open(path, 'w') { |f| f.write(content) }
+
+        return true
+      end
+
+      def up(name)
+        return false unless require_name(name)
+
+        ActiveRecord::Migrator.up(TotemActiverecord.migrations_path, name)
+
+        return true
+      end
+
+      def down(name)
+        return false unless require_name(name)
+
+        ActiveRecord::Migrator.down(TotemActiverecord.migrations_path, name)
+
+        return true
+      end
+
+      def run_m(name)
+        return false unless require_name(name)
+
+        ActiveRecord::Migrator.run(TotemActiverecord.migrations_path, name)
 
         return true
       end
@@ -79,7 +101,25 @@ module TotemActiverecord
         puts "  drop             - Drop the database if it exists."
         puts "  migrate          - Run all new migrations."
         puts "  rollback         - Rollback one migration."
-        puts "  migration <name> - Create a new migration for the given name."
+        puts "  migration <name> - Create a new migration with <name>."
+        puts "  up <name>        - Run 'up' method in the <name> migration."
+        puts "  down <name>      - Run 'down' method in the <name> migration."
+        puts "  run <name>       - Force migration <name> to run even if it has already ran."
+      end
+
+      def puts_error(message)
+          puts "ERROR: #{message}"
+          puts
+          puts_usage
+      end
+
+      def require_name(name)
+        if name.length == 0
+          puts_error('You must provide a name for the migration.')
+          return false
+        end
+
+        return true
       end
     end
   end
