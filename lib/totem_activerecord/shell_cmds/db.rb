@@ -51,6 +51,7 @@ module TotemActiverecord
           return
         end
 
+        name = name.gsub(/\s/,'_')
         timestamp =  Time.now.utc.strftime("%Y%m%d%H%M%S")
         filename = "#{timestamp}_#{name}.rb"
         path = File.join(Totem.root, 'db', 'migrate', filename)
