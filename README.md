@@ -1,7 +1,6 @@
 # TotemActiverecord
 
 This gem is an ActiveRecord add-on for [Totem](https://github.com/chadrem/totem).
-The version of the activerecord gem isn't locked down so that you can specify a specific version in your project's Gemfile.
 
 ## Installation
 
