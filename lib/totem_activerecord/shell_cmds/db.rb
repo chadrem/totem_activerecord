@@ -10,7 +10,6 @@ module TotemActiverecord
         when 'migration' then migration(@args[1])
         when 'up'        then up(@args[1])
         when 'down'      then down(@args[1])
-        when 'run'       then run_m(@args[1])
         else
           puts_usage
         end
@@ -47,7 +46,7 @@ module TotemActiverecord
       end
 
       def migration(name)
-        return false unless require_name(name)
+        return false unless require_arg(name, :name)
 
         name = name.gsub(/\s/,'_')
         timestamp =  Time.now.utc.strftime("%Y%m%d%H%M%S")
@@ -67,26 +66,22 @@ module TotemActiverecord
         return true
       end
 
-      def up(name)
-        return false unless require_name(name)
+      def up(timestamp)
+        return false unless require_arg(timestamp, :timestamp)
 
-        ActiveRecord::Migrator.up(TotemActiverecord.migrations_path, name)
-
-        return true
-      end
-
-      def down(name)
-        return false unless require_name(name)
-
-        ActiveRecord::Migrator.down(TotemActiverecord.migrations_path, name)
+        ActiveRecord::Migration.verbose = true
+        ActiveRecord::Migrator.up(TotemActiverecord.migrations_path, timestamp.to_i)
+        TotemActiverecord.reconnect
 
         return true
       end
 
-      def run_m(name)
-        return false unless require_name(name)
+      def down(timestamp)
+        return false unless require_arg(timestamp, :timestamp)
 
-        ActiveRecord::Migrator.run(TotemActiverecord.migrations_path, name)
+        ActiveRecord::Migration.verbose = true
+        ActiveRecord::Migrator.down(TotemActiverecord.migrations_path, timestamp.to_i)
+        TotemActiverecord.reconnect
 
         return true
       end
@@ -104,7 +99,6 @@ module TotemActiverecord
         puts "  migration <name> - Create a new migration with <name>."
         puts "  up <name>        - Run 'up' method in the <name> migration."
         puts "  down <name>      - Run 'down' method in the <name> migration."
-        puts "  run <name>       - Force migration <name> to run even if it has already ran."
       end
 
       def puts_error(message)
@@ -113,9 +107,9 @@ module TotemActiverecord
           puts_usage
       end
 
-      def require_name(name)
-        if name.length == 0
-          puts_error('You must provide a name for the migration.')
+      def require_arg(val, name)
+        if val.nil? || val.length == 0
+          puts_error("You must provide a #{name}.")
           return false
         end
 
