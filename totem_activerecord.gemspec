@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['chad@remesch.com']
   spec.summary       = %q{ActiveRecord add-on for the Totem gem.}
   spec.description   = %q{Add an easy to use ORM to your Totem based applications.}
-  spec.homepage      = ''
+  spec.homepage      = 'https://github.com/chadrem/totem_activerecord'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
