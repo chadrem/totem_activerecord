@@ -96,9 +96,9 @@ module TotemActiverecord
         puts "  drop             - Drop the database if it exists."
         puts "  migrate          - Run all new migrations."
         puts "  rollback         - Rollback one migration."
-        puts "  migration <name> - Create a new migration with <name>."
-        puts "  up <name>        - Run 'up' method in the <name> migration."
-        puts "  down <name>      - Run 'down' method in the <name> migration."
+        puts "  migration <name> - Create a new migration."
+        puts "  up <timestamp>   - Run 'up' method in the migration."
+        puts "  down <timestamp> - Run 'down' method in the migration."
       end
 
       def puts_error(message)
