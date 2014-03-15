@@ -4,17 +4,13 @@ This gem is the ActiveRecord add-on for [Totem](https://github.com/chadrem/totem
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Add this line to your Totem project's Gemfile:
 
     gem 'totem_activerecord'
 
 And then execute:
 
     $ bundle
-
-Or install it yourself as:
-
-    $ gem install totem_activerecord
 
 ## Setup
 
