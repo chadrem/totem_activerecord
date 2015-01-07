@@ -1,3 +1,5 @@
+require 'erb'
+
 require 'totem'
 require 'active_record'
 
@@ -14,7 +16,7 @@ module TotemActiverecord
   end
 
   def self.config
-    return (@config ||= YAML.load_file(config_path)[Totem.env])
+    return (@config ||= YAML.load(ERB.new(File.read(config_path)).result()))
   end
 
   def self.connect
